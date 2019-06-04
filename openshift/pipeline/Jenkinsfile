@@ -1,6 +1,22 @@
-node('nodejs') {
-  stage 'build'
-  openshiftBuild(buildConfig: 'nodejs-mongodb-example', showBuildLogs: 'true')
-  stage 'deploy'
-  openshiftDeploy(deploymentConfig: 'nodejs-mongodb-example')
+pipeline {
+  agent {
+        node {
+          label 'nodejs' 
+        }
+  }
+  options {
+        timeout(time: 20, unit: 'MINUTES') 
+  }
+  stages {
+        stage('build') {
+                steps {
+                         openshiftBuild(buildConfig: 'nodejs-mongodb-example', showBuildLogs: 'true')
+                }
+        }
+        stage('deploy') {
+                steps {
+                          openshiftDeploy(deploymentConfig: 'nodejs-mongodb-example')
+                }
+        }
+  }
 }
