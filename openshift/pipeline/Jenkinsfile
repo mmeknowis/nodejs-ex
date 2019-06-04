@@ -10,12 +10,12 @@ pipeline {
   stages {
         stage('build') {
                 steps {
-                         openshiftBuild(buildConfig: 'nodejs-mongodb-example', showBuildLogs: 'true')
+                         openshiftBuild(bldCfg: 'nodejs-mongodb-example', showBuildLogs: 'true')
                 }
         }
         stage('deploy') {
                 steps {
-                          openshiftDeploy(deploymentConfig: 'nodejs-mongodb-example')
+                          openshiftDeploy(depCfg: 'nodejs-mongodb-example')
                 }
         }
   }
