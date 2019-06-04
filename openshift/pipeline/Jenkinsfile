@@ -1,22 +1,8 @@
-pipeline {
-  agent {
-        node {
-          label 'nodejs' 
-        }
-  }
-  options {
-        timeout(time: 20, unit: 'MINUTES') 
-  }
-  stages {
-        stage('build') {
-                steps {
-                         openshiftBuild(bldCfg: 'nodejs-mongodb-example', showBuildLogs: 'true')
-                }
-        }
-        stage('deploy') {
-                steps {
-                          openshiftDeploy(depCfg: 'nodejs-mongodb-example')
-                }
-        }
-  }
+node('nodejs') {
+  stage 'build'
+  openshiftBuild(buildConfig: 'nodejs-ex', showBuildLogs: 'true')
+  stage 'deploy'
+  openshiftDeploy(deploymentConfig: 'nodejs-ex')
 }
+
+
